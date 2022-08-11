@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+<body>
+    <canvas id="canvas" width="600" height="600"></canvas>
+    <script>
+
+var ctx = canvas.getContext('2d');
+ctx.fillStyle ="rgb(200,0,0)";
+ctx.fillRect(25,25,100,100);
+
+ctx.fillStyle ="rgba(0,0,150,0.5)";
+ctx.fillRect(100,100,100,100);
+
+ctx.fillStyle ="rgba(100,10,00,0.5)";
+ctx.fillRect(175,175,100,100);
+
+
+ctx.moveTo(500,50);
+ctx.lineTo(650,250);
+ctx.stroke();
+
+ctx.moveTo(450,100);
+ctx.lineTo(590,250);
+ctx.lineTo(480,300);
+ctx.lineTo(450,100);
+ctx.stroke();
+ctx.fill();
+
+//arc 
+ctx.beginPath();
+    ctx.arc(250,450,100,0,Math.PI*2,true); // Círculo externo
+    ctx.stroke();
+
+    
+    ctx.beginPath();
+    ctx.arc(500,450,100,0,Math.PI*2,true); // Círculo externo
+    ctx.stroke();
+    ctx.fill();
+
+    //text 
+    ctx.font ="30px Arial";
+    ctx.fillText("hola mundo",150,30);
+    ctx.strokeText("hola mundo",150,80);
+    </script>
+</body>
+</html>
