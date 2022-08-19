@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        canvas {
+            background-color: beige;
+        }
+    </style>
+
+</head>
+
+<body>
+    <canvas id="canvas" width="600" height="600"></canvas>
+    <img src="fondo.jpg" width="300" height="150" id="fondo">
+    <script type="text/javascript">
+
+        var cv = null;
+        var ctx = null;
+        var player1=null;
+        var maxX = 250, maxY = 250;
+        function start() {
+             cv = document.getElementById("canvas");
+             ctx = cv.getContext("2d");
+             player1=new cuadrado();
+            paint();
+        }
+
+
+
+        function paint() {
+            window.requestAnimationFrame(paint);
+            ctx.fillStyle = "cyan";
+            ctx.fillRect(0, 0, 400, 400);
+
+            ctx.fillStyle = random_rgba();
+            ctx.fillRect(maxX, maxY, 40, 40);
+            // ctx.StrokeRect(maxX, maxY, 40, 40);
+            update();
+        }
+
+        window.addEventListener('load', start)
+
+
+        window.requestAnimationFrame = (function () {
+            return window.requestAnimationFrame ||
+                window.webkitRequestAnimationFrame ||
+                window.mozRequestAnimationFrame ||
+                function (callback) {
+                    window.setTimeout(callback, 17);
+                };
+        }());
+
+        function update() {
+
+            maxX+=10;
+            if(maxX>500){
+                maxX=0;
+            }
+        }
+
+        document.addEventListener("keydown", function (e) {
+            console.log(e);
+            //ARRIBA
+            if (e.which == 87) {
+                maxY -= 10;
+            }
+            //ABAJO
+            if (e.which == 83) {
+                maxY += 10;
+            }
+            //IZQUIERDA
+            if (e.which == 65) {
+                maxX -= 10;
+            }
+            //DERECHA
+            if (e.which == 68) {
+                maxX += 10;
+            }
+            paint();
+        });
+
+        function random_rgba() {
+            var o = Math.round, r = Math.random, s = 255;
+            return 'rgba(' + o(r() * s) + ',' + o(r() * s) + ',' + o(r() * s) + ',' + r().toFixed(1) + ')';
+        }
+
+        /*
+        var color = 'blue';
+        var fig = 'arc';
+        var pressed = false;
+        // rectangulo degradacion
+        var grd = ctx.createLinearGradient(5, 80, 150, 50);
+        grd.addColorStop(0, "rgb(0,150,255)");
+        grd.addColorStop(1, "rgb(0,150,120)");
+
+        ctx.fillStyle = grd;
+        ctx.fillRect(20, 200, 200, 100);
+
+        // rectangulo decolorado
+        var grd = ctx.createRadialGradient(75, 50, 5, 90, 60, 100);
+        grd.addColorStop(0, "red");
+        grd.addColorStop(1, "white");
+
+        ctx.fillStyle = grd;
+        ctx.fillRect(10, 10, 150, 100);
+
+
+        //imagen 
+        var img = document.getElementById('fondo');
+        ctx.drawImage(img, 10, 10);
+
+        //figuras random_colors
+
+
+        cv.addEventListener('click', function (e) {
+            ctx.fillStyle = color;
+
+            if (fig == 'rec') {
+
+                ctx.fillRect(e.offsetX - 40, e.offsetY - 40, 80, 80);
+                ctx.strokeRect(e.offsetX - 40, e.offsetY - 40, 80, 80);
+            } else {
+
+                ctx.beginPath();
+                ctx.arc(e.offsetX - 0, e.offsetY - 0, 40, 0, 2 * Math.PI);
+                ctx.fill();
+                ctx.stroke();
+            }
+        });
+        cv.addEventListener('mouseover', function (e) {
+            color = random_rgba();
+        })
+        cv.addEventListener('mouseout', function (e) {
+            fig = (fig == 'arc') ? 'rec' : 'arc';
+
+        });
+        function random_rgba() {
+            var o = Math.round, r = Math.random, s = 255;
+            return 'rgba(' + o(r() * s) + ',' + o(r() * s) + ',' + o(r() * s) + ',' + r().toFixed(1) + ')';
+        }
+
+        //pintas con solo pasar
+        cv.addEventListener('mousemove', function (e) {
+            if (pressed) {
+                ctx.fillStyle = 'rgba(255,55,255,0.5)';
+                ctx.fillRect(e.offsetX - 5, e.offsetY - 5, 18, 18);
+            }
+        });
+
+        //pintar presionando y dejar soltando
+        cv.addEventListener('mousedown', function (e) {
+            pressed = true;
+        });
+
+        cv.addEventListener('mouseup', function (e) {
+            pressed = false;
+        });*/
+
+
+
+    </script>
+</body>
+
+</html>
