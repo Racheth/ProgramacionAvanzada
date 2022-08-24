@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        canvas {
+            background-color: #24C2E5;
+        }
+    </style>
+
+</head>
+
+<body>
+    <canvas id="canvas" width="600" height="600"></canvas>
+
+    <script type="text/javascript">
+        var cv = document.getElementById("canvas");
+        var ctx = cv.getContext("2d");
+        //tronco
+        ctx.createRadialGradient(75, 50, 5, 90, 60, 100);
+        ctx.fillStyle = "#3F2212";
+        ctx.fillRect(500, 380, 100, 220);
+        //ojas
+        ctx.beginPath();
+        ctx.arc(500, 300, 150, 0, Math.PI * 2, true);
+        ctx.stroke();
+        ctx.fillStyle = "#228B22";
+        ctx.fill();
+        //ojas
+        ctx.beginPath();
+        ctx.arc(350, 300, 100, 0, Math.PI * 2, true);
+        ctx.stroke();
+        ctx.fillStyle = "#228B22";
+        ctx.fill();
+        //ojas
+        ctx.beginPath();
+        ctx.arc(460, 150, 150, 0, Math.PI * 2, true);
+        ctx.stroke();
+        ctx.fillStyle = "#228B22";
+        ctx.fill();
+        //ojas
+        ctx.beginPath();
+        ctx.arc(520, 400, 80, 0, Math.PI * 2, true);
+        ctx.stroke();
+        ctx.fillStyle = "#228B22";
+        ctx.fill();
+        // manzanitas
+        ctx.beginPath();
+        ctx.arc(520, 380, 20, 0, Math.PI * 2, true);
+        ctx.stroke();
+        ctx.fillStyle = "#E53624";
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.arc(360, 380, 20, 0, Math.PI * 2, true);
+        ctx.stroke();
+        ctx.fillStyle = "#E53624";
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.arc(520, 150, 20, 0, Math.PI * 2, true);
+        ctx.stroke();
+        ctx.fillStyle = "#E53624";
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.arc(380, 220, 20, 0, Math.PI * 2, true);
+        ctx.stroke();
+        ctx.fillStyle = "#E53624";
+        ctx.fill();
+
+        //casa
+        ctx.createRadialGradient(75, 50, 5, 90, 60, 100);
+        ctx.fillStyle = "#AC9075";
+        ctx.fillRect(40, 350, 240, 250);
+        //puerta
+        ctx.createRadialGradient(75, 50, 5, 90, 60, 100);
+        ctx.fillStyle = "#4D4A4C";
+        ctx.fillRect(130, 520, 60, 80);
+        //techo
+        ctx.beginPath();
+        ctx.moveTo(40, 350);
+        ctx.lineTo(160, 250);
+        ctx.lineTo(280, 350);
+        ctx.fillStyle = "#EFA459";
+        ctx.fill();
+        //ventana 1
+        ctx.createRadialGradient(75, 50, 5, 90, 60, 100);
+        ctx.fillStyle = "#646A6A";
+        ctx.fillRect(80, 420, 50, 50);
+        //ventana 2
+        ctx.createRadialGradient(75, 50, 5, 90, 60, 100);
+        ctx.fillStyle = "#646A6A";
+        ctx.fillRect(190, 420, 50, 50);
+        //perilla
+        ctx.beginPath();
+        ctx.arc(180, 560, 5, 0, Math.PI * 2, true);
+        ctx.stroke();
+        ctx.fillStyle = "#070E15";
+        ctx.fill();
+        // nubes
+        ctx.beginPath();
+        ctx.arc(180, 120, 50, 0, Math.PI * 2, true);
+        ctx.fillStyle = "white";
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.arc(60, 120, 50, 0, Math.PI * 2, true);
+        ctx.fillStyle = "white";
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.arc(120, 120, 50, 0, Math.PI * 2, true);
+        ctx.fillStyle = "white";
+        ctx.fill();
+        //nubes pequeñas
+        ctx.beginPath();
+        ctx.arc(250, 50, 20, 0, Math.PI * 2, true);
+        ctx.fillStyle = "white";
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.arc(200, 50, 20, 0, Math.PI * 2, true);
+        ctx.fillStyle = "white";
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.arc(220, 50, 20, 0, Math.PI * 2, true);
+        ctx.fillStyle = "white";
+        ctx.fill();
+        // ventana separaciom
+        ctx.strokeStyle = "black";
+        ctx.beginPath();
+        ctx.moveTo(105, 420);
+        ctx.lineTo(105, 470);
+        ctx.stroke();
+
+        ctx.strokeStyle = "black";
+        ctx.beginPath();
+        ctx.moveTo(215, 420);
+        ctx.lineTo(215, 470);
+        ctx.stroke();
+
+
+    </script>
+</body>
+
+</html>
