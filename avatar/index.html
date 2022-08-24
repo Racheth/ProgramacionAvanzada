@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        canvas {
+            background-color: white;
+        }
+    </style>
+
+</head>
+
+<body>
+    <canvas id="canvas" width="600" height="600"></canvas>
+
+    <script type="text/javascript">
+        var cv = document.getElementById("canvas");
+        var ctx = cv.getContext("2d");
+
+
+        //fondo
+        ctx.beginPath();
+        ctx.arc(300, 300, 250, 0, Math.PI * 2, true); // Círculo externo
+        ctx.stroke();
+        ctx.fillStyle = "	#808080";
+        ctx.fill();
+        //cuello
+        ctx.createRadialGradient(75, 50, 5, 90, 60, 100);
+        ctx.fillStyle = "#F7DCC7";
+        ctx.fillRect(250, 380, 100, 50);
+        //cara
+        ctx.beginPath();
+        ctx.arc(300, 250, 150, 3.2, Math.PI * 2, true); // cabello
+        ctx.stroke();
+        ctx.fillStyle = "#F7DCC7";
+        ctx.fill();
+
+        //ojos
+        ctx.beginPath();
+        ctx.arc(240, 280, 35, 0, Math.PI * 5, true); // ojo derecho
+        ctx.stroke();
+        ctx.fillStyle = "white";
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.arc(360, 280, 35, 0, Math.PI * 5, true); // ojo izquierdo
+        ctx.stroke();
+        ctx.fillStyle = "white";
+        ctx.fill();
+
+        //ojo izquierdo dentro
+        ctx.beginPath();
+        ctx.lineWidth = 5;
+        ctx.strokeStyle = "black";
+        ctx.fillStyle = "#804000";
+        ctx.ellipse(240, 280, 20, 30, 0, Math.PI, Math.PI * 2);
+        ctx.stroke();
+        ctx.fill();
+        //ojo derecho dentro
+        ctx.beginPath();
+        ctx.lineWidth = 5;
+        ctx.strokeStyle = "black";
+        ctx.fillStyle = "#804000";
+        ctx.ellipse(360, 280, 20, 30, 0, Math.PI, Math.PI * 2);
+        ctx.stroke();
+        ctx.fill();
+        //cabello
+        ctx.beginPath();//poder cambiar
+        ctx.moveTo(400, 140);
+        ctx.lineTo(190, 80);//primer punto superior
+        ctx.lineTo(480, 320);//segundo punto inferior
+        ctx.lineTo(400, 150);//derecha punto
+        ctx.stroke();
+        ctx.fillStyle = "black";
+        ctx.fill();
+
+        ctx.beginPath();//poder cambiar
+        ctx.moveTo(400, 140);
+        ctx.lineTo(190, 120);//primer punto superior
+        ctx.lineTo(480, 320);//segundo punto inferior
+        ctx.lineTo(100, 150);//derecha punto
+        ctx.stroke();
+        ctx.fillStyle = "black";
+        ctx.fill();
+        //cabello medio
+        ctx.beginPath();
+        ctx.arc(300, 250, 150, 0, Math.PI * 5, true); // cabello medio circulo
+        ctx.stroke();
+        ctx.fillStyle = "black";
+        ctx.fill();
+        //cuello camisa
+        ctx.createRadialGradient(75, 50, 5, 90, 60, 100);
+        ctx.fillStyle = "#black";
+        ctx.fillRect(250, 410, 100, 50);
+        //camisa
+        ctx.createRadialGradient(75, 50, 5, 90, 60, 100);
+        ctx.fillStyle = "#black";
+        ctx.fillRect(180, 450, 240, 120);
+        //manga izq
+        ctx.createRadialGradient(75, 50, 5, 90, 60, 100);
+        ctx.fillStyle = "#black";
+        ctx.fillRect(400, 450, 80, 50);
+        //manga dere
+        ctx.createRadialGradient(75, 50, 5, 90, 60, 100);
+        ctx.fillStyle = "#black";
+        ctx.fillRect(120, 450, 80, 50);
+        //mano izq
+        ctx.createRadialGradient(75, 50, 5, 90, 60, 100);
+        ctx.fillStyle = "#F7DCC7";
+        ctx.fillRect(420, 500, 60, 80);
+        //mano dere
+        ctx.createRadialGradient(75, 50, 5, 90, 60, 100);
+        ctx.fillStyle = "#F7DCC7";
+        ctx.fillRect(120, 500, 60, 80);
+
+        //boca
+        ctx.moveTo(345, 340);
+        ctx.arc(300, 340, 35, 0, Math.PI, false);  // Boca (en el sentido de las agujas del reloj)
+        ctx.stroke();
+        //texto 
+        ctx.beginPath();
+        ctx.font = "40px Times New Roman";
+        ctx.fontStyle = "#F7DCC7";
+        ctx.strokeText("Luis 'RACHETH' ", 300, 50);
+    </script>
+</body>
+
+</html>
