@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        canvas {
+            background-color: beige;
+        }
+    </style>
+
+</head>
+
+<body>
+    <canvas id="canvas" width="500" height="500"></canvas>
+
+    <script type="text/javascript">
+
+        var cv = null;
+        var ctx = null;
+        var player1 = null;
+        var maxX = 250, maxY = 250;
+        var direction = 'left';
+        var player2 = null;
+        var acore = 0;
+        var pause = false;
+        var pared = null;
+        var shiru = new Image();
+        var ninja = new Image();
+        function start() {
+            cv = document.getElementById("canvas");
+            ctx = cv.getContext("2d");
+            player1 = new Cuadraro(maxX, maxY, 40, 40, 'blue');
+            player2 = new Cuadraro(generateRandomInteger(460), generateRandomInteger(460), 40, 40, 'red');
+            shiru.src = 'shuri.png';
+            ninja.src = 'sakura.jpg';
+            ostaculo();
+            paint();
+
+        }
+
+
+        function paint() {
+            window.requestAnimationFrame(paint);
+            ctx.fillStyle = 'white';
+            ctx.fillRect(0, 0, 500, 500);
+
+            ctx.fillStyle = "black";
+            ctx.fillText("SCORE :" + acore, 30, 30);
+            // player1.dibujar(ctx);
+            ctx.drawImage(shiru, player1.x, player1.y);
+            // player2.dibujar(ctx);
+            ctx.drawImage(ninja, player2.x, player2.y);
+            pared.dibujar(ctx);
+            // ctx.drawImage(shiru,pared.x,pared.y,200,40);
+            if (!pause) {
+                update();
+            } else {
+                ctx.fillStyle = "rgba(0,0,0,0.5)";
+                ctx.fillRect(0, 0, 500, 500);
+                ctx.fillStyle = "#fff";
+                ctx.font = "20px Courier";
+                ctx.fillText("Pause", 200, 250);
+            }
+
+        }
+
+        window.addEventListener('load', start)
+
+
+        window.requestAnimationFrame = (function () {
+            return window.requestAnimationFrame ||
+                window.webkitRequestAnimationFrame ||
+                window.mozRequestAnimationFrame ||
+                function (callback) {
+                    window.setTimeout(callback, 17);
+                };
+        }());
+
+        function update() {
+            if (direction == 'right') {
+                if (player1.se_tocan(pared)) {
+                    player1.x = player1.x - 5;
+                } else {
+                    player1.x += 5;
+                    if (player1.x >= 500) {
+                        player1.x = 0;
+                    }
+                }
+            }
+
+            if (direction == 'left') {
+                if (player1.se_tocan(pared)) {
+                    player1.x = player1.x + 5;
+                } else {
+                    player1.x -= 5;
+                    if (player1.x <= 0) {
+                        player1.x = 500;
+                    }
+                }
+            }
+            if (direction == 'down') {
+                if (player1.se_tocan(pared)) {
+                    player1.y = player1.y - 5;
+                } else {
+                    player1.y += 5;
+                    if (player1.y >= 500) {
+                        player1.y = 0;
+                    }
+                }
+            }
+            if (direction == 'up') {
+                if (player1.se_tocan(pared)) {
+                    player1.y = player1.y + 5;
+                } else {
+                    player1.y -= 5;
+                    if (player1.y <= 0) {
+                        player1.y = 500;
+                    }
+                }
+            }
+
+            if (player1.se_tocan(player2)) {
+                player2.x = generateRandomInteger(460);
+                player2.y = generateRandomInteger(460);
+                acore += 5;
+                if (player2.se_tocan(pared) ) {
+                    player2.x = generateRandomInteger(460);
+                    player2.y = generateRandomInteger(460);
+                }
+
+            }
+
+        }
+        function ostaculo() {
+
+            pared = new Cuadraro(150, 350, 200, 40, 'black');
+
+
+        }
+
+
+
+        document.addEventListener("keydown", function (e) {
+            console.log(e);
+            //ARRIBA
+            if (e.which == 87) {
+                direction = 'up'
+            }
+            //ABAJO
+            if (e.which == 83) {
+                direction = 'down'
+            }
+            //IZQUIERDA
+            if (e.which == 65) {
+                direction = 'left'
+
+            }
+            //DERECHA
+            if (e.which == 68) {
+                direction = 'right'
+            }
+            //PAUSA
+            if (e.which == 32) {
+                if (!pause) {
+                    pause = true;
+                } else {
+                    pause = false;
+                }
+
+            }
+
+        });
+
+        function random_rgba() {
+            var o = Math.round, r = Math.random, s = 255;
+            return 'rgba(' + o(r() * s) + ',' + o(r() * s) + ',' + o(r() * s) + ',' + r().toFixed(1) + ')';
+        }
+
+        function Cuadraro(x, y, w, h, c) {
+            this.x = x;
+            this.y = y;
+            this.w = w;
+            this.h = h;
+            this.c = c;
+            this.se_tocan = function (target) {
+                if (this.x < target.x + target.w &&
+                    this.x + this.w > target.x &&
+                    this.y < target.y + target.h &&
+                    this.y + this.h > target.y) {
+                    return true;
+                }
+            };
+            this.dibujar = function (ctx) {
+                ctx.fillStyle = this.c;
+                ctx.fillRect(this.x, this.y, this.w, this.h);
+                ctx.strokeRect(this.x, this.y, this.w, this.h);
+            }
+        }
+
+
+        function generateRandomInteger(max) {
+            return Math.floor(Math.random() * max) + 1;
+        }
+
+
+
+    </script>
+</body>
+
+</html>
