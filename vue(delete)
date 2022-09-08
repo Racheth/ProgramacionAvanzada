@@ -62,7 +62,7 @@
 
             <tbody>
 
-                <tr v-for="user,index in users" v-bind:key="user.id">
+                <tr v-for="(user, index) in users" v-bind:key="user">
                     <td>
                         {{ index + 1 }}
                     </td>
@@ -85,7 +85,7 @@
                         <button @click="editar">
                             Edit
                         </button>
-                        <button @click="eliminar(user.id)">
+                        <button @click="eliminar(index)">
                             Delete
 
                         </button>
@@ -181,18 +181,18 @@
                         website: '',
 
                     }
-                    alert(this.id)
+                    
 
                 },
                 editar() {
 
                     this.news(this.index)
 
-                    alert(this.index)
 
                 },
-                eliminar(id) {
-                    this.users.splice(this.id, 1)
+                eliminar(index) {
+                    this.users.splice(index, 1)
+                    
                 },
             },
             mounted() {
