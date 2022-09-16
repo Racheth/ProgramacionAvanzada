@@ -1,0 +1,11 @@
+.container form {
+	background-color: red;
+}
+
+.container form fieldset label {
+	background-color: #5757d6;
+}
+
+.container form button {
+	background-color: #000045;
+}
