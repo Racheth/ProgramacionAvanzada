@@ -64,7 +64,7 @@
 									    <a onclick="eliminar(this)" href="#" class="btn btn-danger mb-1 col-6">
 									    	Eliminar
 									    </a>
-									    <a href="#" class="btn btn-info col-12">
+									    <a href="details.php" class="btn btn-info col-12">
 									    	Detalles
 									    </a>
 								    </div>
