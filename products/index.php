@@ -1,151 +1,57 @@
 <!DOCTYPE html>
-<html>
-	<head>
-<?php include('layouts/head.templade.php')
-?>
-	</head>
-	<body>
+<html lang="en">
 
-		<!-- NAVBAR -->
-		<nav class="navbar navbar-dark navbar-expand-lg bg-dark">
-		  <?php include('layouts/nav.templade.php')
-		  ?>
-		</nav>
-		<!-- NAVBAR -->
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ 
 
-		<div class="container-fluid">
-			
-			<div class="row">
-				
-				<!-- SIDEBAR -->
-				<div class="col-sm-2 d-sm-block d-none bg-light sidebar">
-					
-				<?php include('layouts/sidebar.templade.php') ?>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-				</div>
-				<!-- SIDEBAR -->
+  <title>Panel</title>
+</head>
 
-				<div class="col-md-10 col-lg-10 col-sm-12">
+<body>
 
-					<section> 
-						<div class="row bg-light m-2">
-							<div class="col">
-								<label>
-									/Productos
-								</label>
-							</div>
-							<div class="col">
-								<button data-bs-toggle="modal" data-bs-target="#addProductModal" class=" float-end btn btn-primary">
-									Añadir producto
-								</button>
-							</div>
-						</div> 
-					</section>
-					
-					<section>
-						
-						<div class="row">
-							
-							<?php for ($i=0; $i < 12; $i++): ?>
+  <section class="vh-100 gradient-custom">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+          <div class="card bg-dark text-white" style="border-radius: 1rem;">
+            <div class="card-body p-5 text-center">
 
-							<div class="col-md-4 col-sm-12"> 
+              <form method="POST" action="app/AutController.php" class="form">
+                <div class="mb-md-5 mt-md-4 pb-5">
 
-								<div class="card mb-2">
-								  <img src="../products/img/fresita.jpg" class="card-img-top" alt="...">
-								  <div class="card-body">
-								    <h5 class="card-title">Card title</h5>
-								    <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-								    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
 
-								    <div class="row">
-									    <a data-bs-toggle="modal" data-bs-target="#addProductModal" href="#" class="btn btn-warning mb-1 col-6">
-									    	Editar
-									    </a>
-									    <a onclick="eliminar(this)" href="#" class="btn btn-danger mb-1 col-6">
-									    	Eliminar
-									    </a>
-									    <a href="details.php" class="btn btn-info col-12">
-									    	Detalles
-									    </a>
-								    </div>
+                  <div class="form-outline form-white mb-4">
+                    <input name="email" type="email" class="form-control form-control-lg" />
+                    <label class="form-label" for="typeEmailX">correo electronico</label>
+                  </div>
 
-								  </div>
-								</div>  
+                  <div class="form-outline form-white mb-4">
+                    <input name="password" type="password" class="form-control form-control-lg" />
+                    <label class="form-label" for="typePasswordX">Password</label>
+                  </div>
 
-							</div>
+                  <button type="submit" class="btn btn-outline-light btn-lg px-5">Acceder</button>
 
-							<?php endfor; ?>
+                  <input type="hidden" value="access"  name="action"> 
 
-						</div>
 
-					</section> 
+                </div>
+              </form>
 
-					 
-				</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-			</div>
 
-		</div>
+</body>
 
-		<!-- Modal -->
-		<div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		  <div class="modal-dialog">
-		    <div class="modal-content">
-		      <div class="modal-header">
-		        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-		      </div>
-
-		      <form>
-
-			      <div class="modal-body">
-			        
-			        <?php for ($i=0; $i < 6; $i++): ?>
-			        <div class="input-group mb-3">
-					  <span class="input-group-text" id="basic-addon1">@</span>
-					  <input required type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-					</div>
-					<?php endfor; ?>
-
-			      </div>
-
-			      <div class="modal-footer">
-			        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-			        	Close
-			        </button>
-			        <button type="submit" class="btn btn-primary">
-			        	Save changes
-			        </button>
-			      </div>
-
-		      </form>
-
-		    </div>
-		  </div>
-		</div>
-		<?php include('layouts/scripts.templade.php')
-		  ?>
-		
-		<script type="text/javascript">
-			function eliminar(target)
-			{
-				swal({
-				  title: "Are you sure?",
-				  text: "Once deleted, you will not be able to recover this imaginary file!",
-				  icon: "warning",
-				  buttons: true,
-				  dangerMode: true,
-				})
-				.then((willDelete) => {
-				  if (willDelete) {
-				    swal("Poof! Your imaginary file has been deleted!", {
-				      icon: "success",
-				    });
-				  } else {
-				    swal("Your imaginary file is safe!");
-				  }
-				});
-			}
-		</script>
-	</body>
 </html>
