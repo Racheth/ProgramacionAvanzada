@@ -1,3 +1,9 @@
+<?php
+include '../app/ProductsController.php';
+$product = new ProductsController;
+$slug = $_GET['slug'];
+$products = $product->details($slug);
+?>
 <!DOCTYPE html>
 <html>
 
@@ -30,50 +36,36 @@
 			<div class="col-md-10 col-lg-10 col-sm-12">
 
 				<section>
-					<div class="row bg-light m-2">
-						<div class="col">
-							<label>
-								/Productos
-							</label>
-						</div>
-						<div class="col">
-							<button data-bs-toggle="modal" data-bs-target="#addProductModal" class=" float-end btn btn-primary">
-								Añadir producto
-							</button>
-						</div>
-					</div>
-				</section>
-
-				<section>
 
 					<div class="row">
 
-
-
 						<div class="col-md-4 col-sm-12">
 
-							<div class="card mb-2">
-								<img src="../products/img/fresita.jpg" class="card-img-top" alt="...">
+							<div class="card mb-2 mt-2">
+								<img src="<?php echo $products->cover ?>" class="card-img-top" alt="...">
 								<div class="card-body">
-									<h5 class="card-title">Card title</h5>
-									<h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-									<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+									<h5 class="card-title"><?php echo  $products->name ?></h5>
 
-									<div class="row">
-										<a data-bs-toggle="modal" data-bs-target="#addProductModal" href="#" class="btn btn-warning mb-1 col-6">
-											Editar
-										</a>
-										<a onclick="eliminar(this)" href="#" class="btn btn-danger mb-1 col-6">
-											Eliminar
-										</a>
-
-									</div>
-
+									<p class="card-text"><?php echo $products->description ?></p>
+									<p>Etiquetas:</p>
+									<ol>
+										<?php foreach ($products->tags as $tag): ?>
+											<li> <?php echo $tag->name ?> </li>
+										<?php endforeach ?>
+									</ol>
+									<p>Categorias:</p>
+									<ol>
+										<?php foreach ($products->categories as $category) : ?>
+											<li> <?php echo $category->name ?> </li>
+										<?php
+										endforeach ?>
+									</ol>
+									<p>Funciones: </p><?php echo $products->features ?>
+									
 								</div>
 							</div>
 
 						</div>
-
 
 
 					</div>
@@ -88,36 +80,7 @@
 	</div>
 
 	<!-- Modal -->
-	<div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
 
-				<form>
-
-					<div class="modal-body">
-
-
-
-					</div>
-
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-							Close
-						</button>
-						<button type="submit" class="btn btn-primary">
-							Save changes
-						</button>
-					</div>
-
-				</form>
-
-			</div>
-		</div>
-	</div>
 	<?php include('../layouts/scripts.templade.php')
 	?>
 

@@ -71,7 +71,7 @@ $products = $product->getProducts();
 											<a onclick="eliminar(this)" href="#" class="btn btn-danger mb-1 col-6">
 												Eliminar
 											</a>
-											<a href="details.php" class="btn btn-info col-12">
+											<a href="details.php?slug=<?php echo $product->slug ?>" class="btn btn-info col-12">
 												Detalles
 											</a>
 										</div>
@@ -102,20 +102,36 @@ $products = $product->getProducts();
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+					<h5 class="modal-title" id="exampleModalLabel">ADD PRODUCTS</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 
-				<form>
+				<form method="POST" action="app/ProductsController.php" enctype="multipart/form-data">
 
 					<div class="modal-body">
-
-						<?php for ($i = 0; $i < 6; $i++) : ?>
-							<div class="input-group mb-3">
-								<span class="input-group-text" id="basic-addon1">@</span>
-								<input required type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-							</div>
-						<?php endfor; ?>
+						<div class="form-group mb-3">
+						<span class="input-group-text" id="basic-addon1">Nombre del producto</span>
+							<input name="name" type="text" class="form-control form-control-lg">
+						</div>
+						<div class="form-group mb-3">
+							<span class="input-group-text" id="basic-addon1">Descripcion</span>
+							<input name="Descripcion" type="text" class="form-control form-control-lg">
+						</div>
+						<div class="form-group mb-3">
+							<span class="input-group-text" id="basic-addon1">slug</span>
+							<input name="slug" type="text" class="form-control form-control-lg">
+						</div>
+						<div class="form-group mb-3">
+							<span class="input-group-text" id="basic-addon1">features</span>
+							<input name="features" type="text" class="form-control form-control-lg">
+						</div>
+						<div class="form-group mb-3">
+							<span class="input-group-text" id="basic-addon1">brand_id</span>
+							<input name="brand_id" type="text" class="form-control form-control-lg">
+						</div>
+						<div class="drop-zone">
+							<input name="img" type="file" class="form-control-file" >
+						</div>
 
 					</div>
 
@@ -127,6 +143,8 @@ $products = $product->getProducts();
 							Save changes
 						</button>
 					</div>
+
+					<input type="hidden" value="access" name="action">
 
 				</form>
 
