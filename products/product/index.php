@@ -1,7 +1,12 @@
 <?php
 include '../app/ProductsController.php';
+include '../app/BrandsController.php';
 $product = new ProductsController;
 $products = $product->getProducts();
+
+$brand = new BrandsController;
+$brands = $brand->getbrands();
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -65,38 +70,25 @@ $products = $product->getProducts();
 										<p class="card-text"><?php echo $product->description ?></p>
 
 										<div class="row">
-											<a data-bs-toggle="modal" data-bs-target="#addProductModal" href="#" class="btn btn-warning mb-1 col-6">
+											<a href="../app/ProductsController.php?id=<?php echo $product->id ?>" data-bs-toggle="modal" data-bs-target="#editproduct" href="#" class="btn btn-warning mb-1 col-6">
 												Editar
 											</a>
-											<a onclick="eliminar(this)" href="#" class="btn btn-danger mb-1 col-6">
+											<a onclick="eliminar(<?= $product->id ?>)" href="#" class="btn btn-danger mb-1 col-6">
 												Eliminar
 											</a>
 											<a href="details.php?slug=<?php echo $product->slug ?>" class="btn btn-info col-12">
 												Detalles
 											</a>
 										</div>
-
 									</div>
 								</div>
-
 							</div>
-
 						<?php endforeach ?>
-
-
-
-
 					</div>
-
 				</section>
-
-
 			</div>
-
 		</div>
-
 	</div>
-
 	<!-- Modal -->
 	<div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
@@ -105,46 +97,79 @@ $products = $product->getProducts();
 					<h5 class="modal-title" id="exampleModalLabel">ADD PRODUCTS</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
-
-				<form method="POST" action="app/ProductsController.php" enctype="multipart/form-data">
-
+				<form method="POST" action="../app/ProductsController.php" enctype="multipart/form-data">
 					<div class="modal-body">
 						<div class="form-group mb-3">
-						<span class="input-group-text" id="basic-addon1">Nombre del producto</span>
+							<span class="input-group-text" id="basic-addon1">Nombre del producto</span>
 							<input name="name" type="text" class="form-control form-control-lg">
 						</div>
 						<div class="form-group mb-3">
 							<span class="input-group-text" id="basic-addon1">Descripcion</span>
-							<input name="Descripcion" type="text" class="form-control form-control-lg">
-						</div>
-						<div class="form-group mb-3">
-							<span class="input-group-text" id="basic-addon1">slug</span>
-							<input name="slug" type="text" class="form-control form-control-lg">
+							<input name="description" type="text" class="form-control form-control-lg">
 						</div>
 						<div class="form-group mb-3">
 							<span class="input-group-text" id="basic-addon1">features</span>
 							<input name="features" type="text" class="form-control form-control-lg">
 						</div>
-						<div class="form-group mb-3">
-							<span class="input-group-text" id="basic-addon1">brand_id</span>
-							<input name="brand_id" type="text" class="form-control form-control-lg">
+						<div class="input-group mb-3">
+						<span class="input-group-text" id="basic-addon1">brand_id</span>
+							<select name="" id="">
+							<?php foreach($brands as $brand):?>
+								<option value="<?=$brand->id?>">
+									<?= $brand->name?>
+								</option>
+							<?php endforeach; ?>
+						</select>
+						</div>					
+						<div class="drop-zone">						
+							<input name="img_producto" type="file" class="form-control-file">
 						</div>
-						<div class="drop-zone">
-							<input name="img" type="file" class="form-control-file" >
-						</div>
-
 					</div>
-
 					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-							Close
-						</button>
-						<button type="submit" class="btn btn-primary">
-							Save changes
-						</button>
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>									
+						<button type="submit" class="btn btn-primary">Save changes</button>												
 					</div>
+					<input type="hidden" value="create" name="action">
 
-					<input type="hidden" value="access" name="action">
+
+
+				</form>
+
+			</div>
+		</div>
+	</div>
+	<!-- Modal EDIT-->
+	<div class="modal fade" id="editproduct" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">EDIT PRODUCTS</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<form method="POST" action="../app/ProductsController.php" enctype="multipart/form-data">
+					<div class="modal-body">
+						<div class="form-group mb-3">
+							<span class="input-group-text" id="basic-addon1">Nombre del producto</span>
+							<input name="name" type="text" class="form-control form-control-lg">
+						</div>
+						<div class="form-group mb-3">
+							<span class="input-group-text" id="basic-addon1">Descripcion</span>
+							<input name="description" type="text" class="form-control form-control-lg">
+						</div>
+						<div class="form-group mb-3">
+							<span class="input-group-text" id="basic-addon1">features</span>
+							<input name="features" type="text" class="form-control form-control-lg">
+						</div>
+											
+						
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>									
+						<button type="submit" class="btn btn-primary">Save changes</button>												
+					</div>
+					<input type="hidden" value="update" name="action">
+
+
 
 				</form>
 
@@ -155,24 +180,66 @@ $products = $product->getProducts();
 	?>
 
 	<script type="text/javascript">
-		function eliminar(target) {
-			swal({
-					title: "Are you sure?",
-					text: "Once deleted, you will not be able to recover this imaginary file!",
-					icon: "warning",
-					buttons: true,
-					dangerMode: true,
-				})
-				.then((willDelete) => {
-					if (willDelete) {
-						swal("Poof! Your imaginary file has been deleted!", {
-							icon: "success",
-						});
-					} else {
-						swal("Your imaginary file is safe!");
-					}
-				});
-		}
+		
+        function eliminar (id) {
+        swal({
+        title: "Are you sure?",
+        text: "Once deleted, you will not be able to recover this imaginary file!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+        })
+        .then((willDelete) => {
+        if (willDelete) {
+            swal("Poof! Your imaginary file has been deleted!", {
+            icon: "success",
+            });
+            var bodyFormData = new FormData();
+            bodyFormData.append('id', id);
+            bodyFormData.append('action', 'delete');
+            axios.post('../app/ProductsController.php', bodyFormData)
+            .then(function (response) {
+                console.log(response);
+                location.reload();
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+        } else {
+            swal("Your imaginary file is safe!");
+        }
+        });
+    }
+
+	function edit (id) {
+        swal({
+        title: "Are you sure?",
+        text: "Once deleted, you will not be able to recover this imaginary file!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+        })
+        .then((willDelete) => {
+        if (willDelete) {
+            swal("Poof! Your imaginary file has been deleted!", {
+            icon: "success",
+            });
+            var bodyFormData = new FormData();
+            bodyFormData.append('id', id);
+            bodyFormData.append('action', 'update');
+            axios.post('../app/EditsController.php', bodyFormData)
+            .then(function (response) {
+                console.log(response);
+                location.reload();
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+        } else {
+            swal("Your imaginary file is safe!");
+        }
+        });
+    }
 	</script>
 </body>
 
