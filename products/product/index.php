@@ -70,7 +70,7 @@ $brands = $brand->getbrands();
 										<p class="card-text"><?php echo $product->description ?></p>
 
 										<div class="row">
-											<a href="../app/ProductsController.php?id=<?php echo $product->id ?>" data-bs-toggle="modal" data-bs-target="#editproduct" href="#" class="btn btn-warning mb-1 col-6">
+											<a data="<?php echo json_encode($product); ?>" onclick="edit($product)" data-bs-toggle="modal" data-bs-target="#editproduct" href="#" class="btn btn-warning mb-1 col-6">
 												Editar
 											</a>
 											<a onclick="eliminar(<?= $product->id ?>)" href="#" class="btn btn-danger mb-1 col-6">
@@ -112,22 +112,22 @@ $brands = $brand->getbrands();
 							<input name="features" type="text" class="form-control form-control-lg">
 						</div>
 						<div class="input-group mb-3">
-						<span class="input-group-text" id="basic-addon1">brand_id</span>
+							<span class="input-group-text" id="basic-addon1">brand_id</span>
 							<select name="" id="">
-							<?php foreach($brands as $brand):?>
-								<option value="<?=$brand->id?>">
-									<?= $brand->name?>
-								</option>
-							<?php endforeach; ?>
-						</select>
-						</div>					
-						<div class="drop-zone">						
+								<?php foreach ($brands as $brand) : ?>
+									<option value="<?= $brand->id ?>">
+										<?= $brand->name ?>
+									</option>
+								<?php endforeach; ?>
+							</select>
+						</div>
+						<div class="drop-zone">
 							<input name="img_producto" type="file" class="form-control-file">
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>									
-						<button type="submit" class="btn btn-primary">Save changes</button>												
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+						<button type="submit" class="btn btn-primary">Save changes</button>
 					</div>
 					<input type="hidden" value="create" name="action">
 
@@ -160,14 +160,26 @@ $brands = $brand->getbrands();
 							<span class="input-group-text" id="basic-addon1">features</span>
 							<input name="features" type="text" class="form-control form-control-lg">
 						</div>
-											
-						
+						<div class="input-group mb-3">
+							<span class="input-group-text" id="basic-addon1">brand_id</span>
+							<select name="brand_id" id="">
+								<?php foreach ($brands as $brand) : ?>
+									<option value="<?= $brand->id ?>">
+										<?= $brand->name ?>
+									</option>
+								<?php endforeach; ?>
+							</select>
+						</div>
+
+
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>									
-						<button type="submit" class="btn btn-primary">Save changes</button>												
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+						<button type="submit" class="btn btn-primary">Save changes</button>
 					</div>
-					<input type="hidden" value="update" name="action">
+					<input id="inputOculto" type="hidden" name="action" value="update">
+					
+
 
 
 
@@ -180,66 +192,46 @@ $brands = $brand->getbrands();
 	?>
 
 	<script type="text/javascript">
-		
-        function eliminar (id) {
-        swal({
-        title: "Are you sure?",
-        text: "Once deleted, you will not be able to recover this imaginary file!",
-        icon: "warning",
-        buttons: true,
-        dangerMode: true,
-        })
-        .then((willDelete) => {
-        if (willDelete) {
-            swal("Poof! Your imaginary file has been deleted!", {
-            icon: "success",
-            });
-            var bodyFormData = new FormData();
-            bodyFormData.append('id', id);
-            bodyFormData.append('action', 'delete');
-            axios.post('../app/ProductsController.php', bodyFormData)
-            .then(function (response) {
-                console.log(response);
-                location.reload();
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-        } else {
-            swal("Your imaginary file is safe!");
-        }
-        });
-    }
+		function eliminar(id) {
+			swal({
+					title: "Are you sure?",
+					text: "Once deleted, you will not be able to recover this imaginary file!",
+					icon: "warning",
+					buttons: true,
+					dangerMode: true,
+				})
+				.then((willDelete) => {
+					if (willDelete) {
+						swal("Poof! Your imaginary file has been deleted!", {
+							icon: "success",
+						});
+						var bodyFormData = new FormData();
+						bodyFormData.append('id', id);
+						bodyFormData.append('action', 'delete');
+						axios.post('../app/ProductsController.php', bodyFormData)
+							.then(function(response) {
+								console.log(response);
+								location.reload();
+							})
+							.catch(function(error) {
+								console.log(error);
+							});
+					} else {
+						swal("Your imaginary file is safe!");
+					}
+				});
+		}
 
-	function edit (id) {
-        swal({
-        title: "Are you sure?",
-        text: "Once deleted, you will not be able to recover this imaginary file!",
-        icon: "warning",
-        buttons: true,
-        dangerMode: true,
-        })
-        .then((willDelete) => {
-        if (willDelete) {
-            swal("Poof! Your imaginary file has been deleted!", {
-            icon: "success",
-            });
-            var bodyFormData = new FormData();
-            bodyFormData.append('id', id);
-            bodyFormData.append('action', 'update');
-            axios.post('../app/EditsController.php', bodyFormData)
-            .then(function (response) {
-                console.log(response);
-                location.reload();
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-        } else {
-            swal("Your imaginary file is safe!");
-        }
-        });
-    }
+		function edit(data) {
+			const elem = document.getElementById('inputOculto').value = 'update';
+			let product = JSON.parse(data.getAttribute('data'));
+			document.getElementById("id").value = product.id;
+			document.getElementById("name").value = product.name;
+			document.getElementById("description").value = product.description;
+			document.getElementById("features").value = product.features;
+			document.getElementById("brand_id").value = product.brand_id;
+
+		}
 	</script>
 </body>
 
