@@ -1,5 +1,6 @@
 <?php
-session_start();
+include_once "config.php";
+
 if (isset($_POST['action'])) {
   switch ($_POST['action']) {
     case 'create':

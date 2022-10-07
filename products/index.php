@@ -1,3 +1,6 @@
+<?php
+include_once "app/config.php";
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -39,6 +42,7 @@
                   <button type="submit" class="btn btn-outline-light btn-lg px-5">Acceder</button>
 
                   <input type="hidden" value="access"  name="action"> 
+                  <input type="hidden" value="<?= $_SESSION['super_token'] ?>"  name="super_token"> 
 
 
                 </div>

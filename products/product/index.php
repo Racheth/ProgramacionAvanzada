@@ -225,6 +225,7 @@ $brands = $brand->getbrands();
 		function edit(data) {
 			const elem = document.getElementById('inputOculto').value = 'update';
 			let product = JSON.parse(data.getAttribute('data'));
+			console.log(data)
 			document.getElementById("id").value = product.id;
 			document.getElementById("name").value = product.name;
 			document.getElementById("description").value = product.description;
