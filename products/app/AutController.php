@@ -1,17 +1,20 @@
 <?php
+
 include_once "config.php";
-if (isset($_POST['action'])) 
-{
-
-    switch ($_POST['action']) {
-        case 'access':
-            $autController = new AutController();
-            $email = strip_tags($_POST['email']);
-            $paswword = strip_tags($_POST['password']);
-            $autController -> login($email, $paswword);
+if (isset($_POST['action'])) {
+    if (isset($_POST['super_token']) && $_POST['super_token'] == $_SESSION['super_token']) {
 
 
-            break;
+        switch ($_POST['action']) {
+            case 'access':
+                $autController = new AutController();
+                $email = strip_tags($_POST['email']);
+                $paswword = strip_tags($_POST['password']);
+                $autController->login($email, $paswword);
+
+
+                break;
+        }
     }
 }
 
@@ -38,7 +41,7 @@ class AutController
         curl_close($curl);
 
         $response = json_decode($response);
-      
+
         if (isset($response->code) && $response->code > 0) {
             session_start();
             $_SESSION['id'] = $response->data->id;
@@ -47,7 +50,10 @@ class AutController
             $_SESSION['avatar'] = $response->data->avatar;
             $_SESSION['role'] = $response->data->role;
             $_SESSION['token'] = $response->data->token;
-           header("location:../product");
+            header("location:".BASE_PATH."/product");
+        }else
+        {
+            header ("Location:".BASE_PATH."/product?error=true");
         }
     }
 }
